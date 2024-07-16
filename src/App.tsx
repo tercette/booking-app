@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { styled } from '@stitches/react';
 import CreateBooking from './components/CreateBooking';
 import BookingList from './components/BookingList';
-import { RootState } from './store';
-import { useSelector } from 'react-redux';
 
 const Container = styled('div', {
   display: 'flex',

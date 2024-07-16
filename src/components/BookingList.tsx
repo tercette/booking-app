@@ -1,4 +1,3 @@
-// src/components/BookingList.tsx
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, deleteBooking, Booking } from '../store';
@@ -14,6 +13,11 @@ const BookingList: React.FC<Props> = ({ onEdit }) => {
   const handleDelete = (id: string) => {
     dispatch(deleteBooking(id));
   };
+
+  
+  if (!Array.isArray(bookings)) {
+    return <div>No bookings available</div>;
+  }
 
   return (
     <div>

@@ -1,5 +1,6 @@
 // src/store.ts
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { loadState, saveState } from './utils/localStorage';
 
 export interface Booking {
   id: string;
@@ -7,12 +8,15 @@ export interface Booking {
   endDate: string;
 }
 
+const initialState: Booking[] = loadState() || [];
+
 const bookingsSlice = createSlice({
   name: 'bookings',
-  initialState: [] as Booking[],
+  initialState,
   reducers: {
     addBooking: (state, action: PayloadAction<Booking>) => {
       state.push(action.payload);
+      saveState(state);
     },
     deleteBooking: (state, action: PayloadAction<string>) => {
       return state.filter((booking) => booking.id !== action.payload);
@@ -22,6 +26,7 @@ const bookingsSlice = createSlice({
       const index = state.findIndex((booking) => booking.id === id);
       if (index !== -1) {
         state[index] = { id, startDate, endDate };
+        saveState(state);
       }
     },
   },
@@ -33,6 +38,11 @@ const store = configureStore({
   reducer: {
     bookings: bookingsSlice.reducer,
   },
+});
+
+// Adiciona um listener para salvar o estado no localStorage sempre que houver mudanças
+store.subscribe(() => {
+  saveState(store.getState().bookings);
 });
 
 export type RootState = ReturnType<typeof store.getState>;

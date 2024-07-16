@@ -1,7 +1,7 @@
 // src/components/CreateBooking.tsx
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, addBooking, updateBooking } from '../store';
+import { RootState, addBooking, updateBooking, Booking } from '../store';
 
 interface Props {
   bookingToEdit?: { id: string; startDate: string; endDate: string };
@@ -22,9 +22,13 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
   }, [bookingToEdit]);
 
   const isOverlapping = (newBooking: { startDate: string; endDate: string }) => {
+    if (!Array.isArray(bookings)) {
+      return false;
+    }
+
     return bookings.some(booking => {
       if (bookingToEdit && booking.id === bookingToEdit.id) {
-        return false; // Ignore current booking being edited
+        return false;
       }
       return (
         (newBooking.startDate >= booking.startDate && newBooking.startDate <= booking.endDate) ||
