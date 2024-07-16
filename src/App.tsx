@@ -1,8 +1,10 @@
-
-import React from 'react';
+// src/App.tsx
+import React, { useState } from 'react';
 import { styled } from '@stitches/react';
 import CreateBooking from './components/CreateBooking';
 import BookingList from './components/BookingList';
+import { RootState } from './store';
+import { useSelector } from 'react-redux';
 
 const Container = styled('div', {
   display: 'flex',
@@ -15,11 +17,21 @@ const Container = styled('div', {
 });
 
 const App: React.FC = () => {
+  const [editingBooking, setEditingBooking] = useState<{ id: string; startDate: string; endDate: string } | undefined>(undefined);
+
+  const handleEdit = (booking: { id: string; startDate: string; endDate: string }) => {
+    setEditingBooking(booking);
+  };
+
+  const cancelEdit = () => {
+    setEditingBooking(undefined);
+  };
+
   return (
     <Container>
       <h1>Booking Management</h1>
-      <CreateBooking />
-      <BookingList />
+      <CreateBooking bookingToEdit={editingBooking} onCancelEdit={cancelEdit} />
+      <BookingList onEdit={handleEdit} />
     </Container>
   );
 };

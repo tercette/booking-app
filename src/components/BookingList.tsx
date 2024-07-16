@@ -1,10 +1,19 @@
+// src/components/BookingList.tsx
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, deleteBooking } from '../store';
+import { RootState, deleteBooking, Booking } from '../store';
 
-const BookingList: React.FC = () => {
+interface Props {
+  onEdit: (booking: Booking) => void;
+}
+
+const BookingList: React.FC<Props> = ({ onEdit }) => {
   const bookings = useSelector((state: RootState) => state.bookings);
   const dispatch = useDispatch();
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteBooking(id));
+  };
 
   return (
     <div>
@@ -13,7 +22,8 @@ const BookingList: React.FC = () => {
         {bookings.map((booking) => (
           <li key={booking.id}>
             {booking.startDate} to {booking.endDate}
-            <button onClick={() => dispatch(deleteBooking(booking.id))}>Delete</button>
+            <button onClick={() => handleDelete(booking.id)}>Delete</button>
+            <button onClick={() => onEdit(booking)}>Edit</button>
           </li>
         ))}
       </ul>

@@ -1,7 +1,7 @@
-
+// src/store.ts
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Booking {
+export interface Booking {
   id: string;
   startDate: string;
   endDate: string;
@@ -18,9 +18,10 @@ const bookingsSlice = createSlice({
       return state.filter((booking) => booking.id !== action.payload);
     },
     updateBooking: (state, action: PayloadAction<Booking>) => {
-      const index = state.findIndex((booking) => booking.id === action.payload.id);
+      const { id, startDate, endDate } = action.payload;
+      const index = state.findIndex((booking) => booking.id === id);
       if (index !== -1) {
-        state[index] = action.payload;
+        state[index] = { id, startDate, endDate };
       }
     },
   },
