@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React from 'react';
+import { styled } from '@stitches/react';
+import CreateBooking from './components/CreateBooking';
+import BookingList from './components/BookingList';
+
+const Container = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '16px',
+  '@media(min-width: 768px)': {
+    padding: '32px',
+  },
+});
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <h1>Booking Management</h1>
+      <CreateBooking />
+      <BookingList />
+    </Container>
   );
-}
+};
 
 export default App;
