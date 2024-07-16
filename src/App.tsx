@@ -4,6 +4,13 @@ import { styled } from '@stitches/react';
 import CreateBooking from './components/CreateBooking';
 import BookingList from './components/BookingList';
 
+interface Booking {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+}
+
 const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
@@ -15,9 +22,9 @@ const Container = styled('div', {
 });
 
 const App: React.FC = () => {
-  const [editingBooking, setEditingBooking] = useState<{ id: string; startDate: string; endDate: string } | undefined>(undefined);
+  const [editingBooking, setEditingBooking] = useState<Booking | undefined>(undefined);
 
-  const handleEdit = (booking: { id: string; startDate: string; endDate: string }) => {
+  const handleEdit = (booking: Booking) => {
     setEditingBooking(booking);
   };
 

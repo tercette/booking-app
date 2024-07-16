@@ -1,14 +1,14 @@
-// src/components/CreateBooking.tsx
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, addBooking, updateBooking, Booking } from '../store';
+import { Booking, RootState, addBooking, updateBooking } from '../store';
 
 interface Props {
-  bookingToEdit?: { id: string; startDate: string; endDate: string };
+  bookingToEdit?: Booking;
   onCancelEdit: () => void;
 }
 
 const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
+  const [name, setName] = useState<string>(bookingToEdit?.name || '');
   const [startDate, setStartDate] = useState<string>(bookingToEdit?.startDate || '');
   const [endDate, setEndDate] = useState<string>(bookingToEdit?.endDate || '');
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
 
   useEffect(() => {
     if (bookingToEdit) {
+      setName(bookingToEdit.name);
       setStartDate(bookingToEdit.startDate);
       setEndDate(bookingToEdit.endDate);
     }
@@ -40,12 +41,20 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (startDate && endDate && startDate <= endDate) {
-      if (!isOverlapping({ startDate, endDate })) {
+      const bookingData: Booking = {
+        id: bookingToEdit?.id || Date.now().toString(),
+        name,
+        startDate,
+        endDate,
+      };
+
+      if (!isOverlapping(bookingData)) {
         if (bookingToEdit) {
-          dispatch(updateBooking({ ...bookingToEdit, startDate, endDate }));
+          dispatch(updateBooking(bookingData));
         } else {
-          dispatch(addBooking({ id: Date.now().toString(), startDate, endDate }));
+          dispatch(addBooking(bookingData));
         }
+        setName('');
         setStartDate('');
         setEndDate('');
         onCancelEdit();
@@ -59,6 +68,13 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
       <input
         type="date"
         value={startDate}

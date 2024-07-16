@@ -4,6 +4,7 @@ import { loadState, saveState } from './utils/localStorage';
 
 export interface Booking {
   id: string;
+  name: string
   startDate: string;
   endDate: string;
 }
@@ -22,10 +23,10 @@ const bookingsSlice = createSlice({
       return state.filter((booking) => booking.id !== action.payload);
     },
     updateBooking: (state, action: PayloadAction<Booking>) => {
-      const { id, startDate, endDate } = action.payload;
+      const { id, name, startDate, endDate } = action.payload;
       const index = state.findIndex((booking) => booking.id === id);
       if (index !== -1) {
-        state[index] = { id, startDate, endDate };
+        state[index] = { id, name, startDate, endDate };
         saveState(state);
       }
     },

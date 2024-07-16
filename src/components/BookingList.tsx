@@ -25,7 +25,7 @@ const BookingList: React.FC<Props> = ({ onEdit }) => {
       <ul>
         {bookings.map((booking) => (
           <li key={booking.id}>
-            {booking.startDate} to {booking.endDate}
+            {booking.name} - {booking.startDate} to {booking.endDate}
             <button onClick={() => handleDelete(booking.id)}>Delete</button>
             <button onClick={() => onEdit(booking)}>Edit</button>
           </li>
