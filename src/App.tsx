@@ -18,6 +18,7 @@ const Container = styled('div', {
   padding: '16px',
   '@media(min-width: 768px)': {
     padding: '32px',
+    flexDirection: 'row',
   },
 });
 
@@ -34,7 +35,6 @@ const App: React.FC = () => {
 
   return (
     <Container>
-      <h1>Booking Management</h1>
       <CreateBooking bookingToEdit={editingBooking} onCancelEdit={cancelEdit} />
       <BookingList onEdit={handleEdit} />
     </Container>

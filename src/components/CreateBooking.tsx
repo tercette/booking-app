@@ -68,6 +68,7 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <h1>Create a booking</h1>
       <input
         type="text"
         placeholder="Name"
