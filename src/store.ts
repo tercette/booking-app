@@ -1,4 +1,3 @@
-// src/store.ts
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { loadState, saveState } from './utils/localStorage';
 
@@ -41,7 +40,6 @@ const store = configureStore({
   },
 });
 
-// Adiciona um listener para salvar o estado no localStorage sempre que houver mudanças
 store.subscribe(() => {
   saveState(store.getState().bookings);
 });
