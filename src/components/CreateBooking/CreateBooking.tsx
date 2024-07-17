@@ -82,6 +82,7 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="Enter your name"
             required
           />
         </FormGroup>
