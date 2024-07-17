@@ -27,7 +27,7 @@ const BookingList: React.FC<Props> = ({ onEdit }) => {
 
   return (
     <Card>
-      <h2>Existing Bookings</h2>
+      <h2 style={{marginBottom:30}}>Existing Bookings</h2>
       <ul>
         {bookings.map((booking) => (
           <BookingItem key={booking.id}>
