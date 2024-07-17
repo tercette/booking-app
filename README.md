@@ -31,7 +31,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Libs used in the application
 
-I this application we used:
 # Redux for state management
 # Stitches for styling
 # Jest for unit tests
