@@ -77,8 +77,9 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
       <h2>{bookingToEdit ? "Edit Booking" : "Create a Booking"}</h2>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label>Name:</Label>
+          <Label htmlFor="nameInput">Name:</Label>
           <Input
+            id="nameInput"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -87,8 +88,9 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
           />
         </FormGroup>
         <FormGroup>
-          <Label>Start Date:</Label>
+          <Label htmlFor="startDateInput">Start Date:</Label>
           <Input
+            id="startDateInput"
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
@@ -96,8 +98,9 @@ const CreateBooking: React.FC<Props> = ({ bookingToEdit, onCancelEdit }) => {
           />
         </FormGroup>
         <FormGroup>
-          <Label>End Date:</Label>
+          <Label htmlFor="endDateInput">End Date:</Label>
           <Input
+            id="endDateInput"
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
